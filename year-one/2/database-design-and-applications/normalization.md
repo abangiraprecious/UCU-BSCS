@@ -1,3 +1,15 @@
+First Normal Form (1NF)
+Real Term: Ensure each column contains only atomic values, and there are no repeating groups. Simpler Explanation: Imagine you have a list of people's contact information. Each person's details like phone number, address, and email are written in a single, clear space in the list. We don't cram multiple phone numbers or addresses into one cell.
+
+Second Normal Form (2NF)
+Real Term: Remove partial dependencies; non-key attributes must fully depend on the primary key. Simpler Explanation: After organizing each person's details, you notice that some information can still be improved. For example, if you have a section for "hobbies" and "job title," you make sure these details are directly related to the person and not split up in confusing ways.
+
+Third Normal Form (3NF)
+Real Term: Remove transitive dependencies; non-key attributes should only depend on the primary key. Simpler Explanation: Finally, you look for any remaining repetitive information. If you've written the same job title or hobby multiple times, you streamline it so each piece of information only appears once, making it super efficient and easy to manage.
+
+So, normalization is all about tidying up your data step-by-step to make it neat, organized, and easy to use!
+
+
 ![Ref. Picture](<Screenshot 2024-11-26 at 20.52.19.png>)
 
 Question 1: Wellmeadows Hospital Patient Medication Form
