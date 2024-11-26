@@ -85,3 +85,62 @@ Initial Table
 | 2         | Betty B.    | West | 4          | Ingrid I.    | 4        | Finance        |
 | 3         | Carl C.     | North| 7          | James J.     | 1        | Administration |
 | 3         | Carl C.     | North| 6          | Katy K.      | 4        | Finance        |
+
+First Normal Form (1NF)
+Ensure each cell contains atomic values and remove duplications.
+
+| managerID | managerName | area | employeeID | employeeName | sectorID | sectorName     |
+|-----------|-------------|------|------------|--------------|----------|----------------|
+| 1         | Adam A.     | East | 1          | David D.     | 4        | Finance        |
+| 1         | Adam A.     | East | 2          | Eugene E.    | 3        | IT             |
+| 2         | Betty B.    | West | 5          | George G.    | 2        | Security       |
+| 2         | Betty B.    | West | 3          | Henry H.     | 1        | Administration |
+| 2         | Betty B.    | West | 4          | Ingrid I.    | 4        | Finance        |
+| 3         | Carl C.     | North| 7          | James J.     | 1        | Administration |
+| 3         | Carl C.     | North| 6          | Katy K.      | 4        | Finance        |
+
+
+Second Normal Form (2NF)
+Remove partial dependencies by splitting the table into smaller tables.
+- **Managers:**
+  | managerID | managerName | area |
+  |-----------|-------------|------|
+  | 1         | Adam A.     | East |
+  | 2         | Betty B.    | West |
+  | 3         | Carl C.     | North|
+
+- **Employees:**
+  | employeeID | employeeName | managerID |
+  |------------|--------------|-----------|
+  | 1          | David D.     | 1         |
+  | 2          | Eugene E.    | 1         |
+  | 5          | George G.    | 2         |
+  | 3          | Henry H.     | 2         |
+  | 4          | Ingrid I.    | 2         |
+  | 7          | James J.     | 3         |
+  | 6          | Katy K.      | 3         |
+
+- **Sectors:**
+  | sectorID | sectorName     |
+  |----------|----------------|
+  | 4        | Finance        |
+  | 3        | IT             |
+  | 2        | Security       |
+  | 1        | Administration |
+
+Third Normal Form (3NF)
+Remove transitive dependencies.
+
+- **Managers:**
+  | managerID | managerName | area |
+  |-----------|-------------|------|
+  | 1         | Adam A.     | East |
+  | 2         | Betty B.    | West |
+  | 3         | Carl C.     | North|
+
+- **Employees:**
+  | employeeID | employeeName | managerID | sectorID |
+  |------------|--------------|-----------|----------|
+  | 1          | David D.     | 1         | 4        |
+  | 2          | Eugene E.    | 1         | 3        |
+  | 5          | George G.    | 2
