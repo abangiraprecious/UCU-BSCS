@@ -73,3 +73,15 @@ Tables (3NF):
   | Ward Number | Ward Name |
   |-------------|-----------|
   | 11          | Orthopaedic|
+
+Question 2: Normalizing Manager-Employee Table
+Initial Table
+| managerID | managerName | area | employeeID | employeeName | sectorID | sectorName     |
+|-----------|-------------|------|------------|--------------|----------|----------------|
+| 1         | Adam A.     | East | 1          | David D.     | 4        | Finance        |
+| 1         | Adam A.     | East | 2          | Eugene E.    | 3        | IT             |
+| 2         | Betty B.    | West | 5          | George G.    | 2        | Security       |
+| 2         | Betty B.    | West | 3          | Henry H.     | 1        | Administration |
+| 2         | Betty B.    | West | 4          | Ingrid I.    | 4        | Finance        |
+| 3         | Carl C.     | North| 7          | James J.     | 1        | Administration |
+| 3         | Carl C.     | North| 6          | Katy K.      | 4        | Finance        |
