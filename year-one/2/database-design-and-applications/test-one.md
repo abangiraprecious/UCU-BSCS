@@ -126,3 +126,96 @@ CREATE TABLE LoanRepayment (
 );
 
 
+# Question Two: Normalizing Loan Applications Table
+
+## Loan Applications Table (Initial)
+| Application ID | Customer ID | Customer Name | Customer Phone | Loan Type    | Loan Amount | Branch ID | Branch Name     | Branch Location | Repayment Schedule         |
+|----------------|-------------|---------------|----------------|--------------|-------------|-----------|-----------------|-----------------|----------------------------|
+| 101            | 1           | Akena Joseph  | 0701234567     | Home Loan    | 100,000     | 10        | Kampala Central | Kampala         | 1000, 1000, 1000, 1000     |
+| 102            | 1           | Akena Joseph  | 0701234567     | Car Loan     | 50,000      | 11        | Nakawa Branch   | Nakawa          | 500, 500, 500              |
+| 103            | 2           | Namukasa Maria| 0787654321     | Personal Loan| 25,000      | 10        | Kampala Central | Kampala         | 250, 250, 250              |
+| 104            | 3           | Okello David  | 0780123456     | Home Loan    | 120,000     | 12        | Entebbe Branch  | Entebbe         | 1200, 1200, 1200, 1200, 1200|
+| 105            | 3           | Okello David  | 0780123456     | Car Loan     | 60,000      | 12        | Entebbe Branch  | Entebbe         | 600, 600, 600              |
+
+## Normalization Process
+
+### First Normal Form (1NF)
+**Principle:** Ensure each column contains only atomic values, and there are no repeating groups.
+- In the initial table, `Repayment Schedule` contains repeating groups. We need to separate these values.
+
+**1NF Table:**
+| Application ID | Customer ID | Customer Name | Customer Phone | Loan Type    | Loan Amount | Branch ID | Branch Name     | Branch Location | Repayment Schedule |
+|----------------|-------------|---------------|----------------|--------------|-------------|-----------|-----------------|-----------------|--------------------|
+| 101            | 1           | Akena Joseph  | 0701234567     | Home Loan    | 100,000     | 10        | Kampala Central | Kampala         | 1000               |
+| 101            | 1           | Akena Joseph  | 0701234567     | Home Loan    | 100,000     | 10        | Kampala Central | Kampala         | 1000               |
+| 101            | 1           | Akena Joseph  | 0701234567     | Home Loan    | 100,000     | 10        | Kampala Central | Kampala         | 1000               |
+| 101            | 1           | Akena Joseph  | 0701234567     | Home Loan    | 100,000     | 10        | Kampala Central | Kampala         | 1000               |
+| 102            | 1           | Akena Joseph  | 0701234567     | Car Loan     | 50,000      | 11        | Nakawa Branch   | Nakawa          | 500                |
+| 102            | 1           | Akena Joseph  | 0701234567     | Car Loan     | 50,000      | 11        | Nakawa Branch   | Nakawa          | 500                |
+| 102            | 1           | Akena Joseph  | 0701234567     | Car Loan     | 50,000      | 11        | Nakawa Branch   | Nakawa          | 500                |
+| 103            | 2           | Namukasa Maria| 0787654321     | Personal Loan| 25,000      | 10        | Kampala Central | Kampala         | 250                |
+| 103            | 2           | Namukasa Maria| 0787654321     | Personal Loan| 25,000      | 10        | Kampala Central | Kampala         | 250                |
+| 103            | 2           | Namukasa Maria| 0787654321     | Personal Loan| 25,000      | 10        | Kampala Central | Kampala         | 250                |
+| 104            | 3           | Okello David  | 0780123456     | Home Loan    | 120,000     | 12        | Entebbe Branch  | Entebbe         | 1200               |
+| 104            | 3           | Okello David  | 0780123456     | Home Loan    | 120,000     | 12        | Entebbe Branch  | Entebbe         | 1200               |
+| 104            | 3           | Okello David  | 0780123456     | Home Loan    | 120,000     | 12        | Entebbe Branch  | Entebbe         | 1200               |
+| 104            | 3           | Okello David  | 0780123456     | Home Loan    | 120,000     | 12        | Entebbe Branch  | Entebbe         | 1200               |
+| 104            | 3           | Okello David  | 0780123456     | Home Loan    | 120,000     | 12        | Entebbe Branch  | Entebbe         | 1200               |
+| 105            | 3           | Okello David  | 0780123456     | Car Loan     | 60,000      | 12        | Entebbe Branch  | Entebbe         | 600                |
+| 105            | 3           | Okello David  | 0780123456     | Car Loan     | 60,000      | 12        | Entebbe Branch  | Entebbe         | 600                |
+| 105            | 3           | Okello David  | 0780123456     | Car Loan     | 60,000      | 12        | Entebbe Branch  | Entebbe         | 600                |
+
+### Second Normal Form (2NF)
+**Principle:** Remove partial dependencies; non-key attributes must fully depend on the primary key.
+- In this step, we separate the data into different tables to remove partial dependencies.
+
+**2NF Tables:**
+- **Customer Table:**
+  | Customer ID | Customer Name   | Customer Phone |
+  |-------------|-----------------|----------------|
+  | 1           | Akena Joseph    | 0701234567     |
+  | 2           | Namukasa Maria  | 0787654321     |
+  | 3           | Okello David    | 0780123456     |
+
+- **Branch Table:**
+  | Branch ID | Branch Name     | Branch Location |
+  |-----------|-----------------|-----------------|
+  | 10        | Kampala Central | Kampala         |
+  | 11        | Nakawa Branch   | Nakawa          |
+  | 12        | Entebbe Branch  | Entebbe         |
+
+- **Loan Table:**
+  | Application ID | Customer ID | Loan Type    | Loan Amount | Branch ID |
+  |----------------|-------------|--------------|-------------|-----------|
+  | 101            | 1           | Home Loan    | 100,000     | 10        |
+  | 102            | 1           | Car Loan     | 50,000      | 11        |
+  | 103            | 2           | Personal Loan| 25,000      | 10        |
+  | 104            | 3           | Home Loan    | 120,000     | 12        |
+  | 105            | 3           | Car Loan     | 60,000      | 12        |
+
+- **Repayment Schedule Table:**
+  | Repayment ID | Application ID | Repayment Amount |
+  |--------------|----------------|------------------|
+  | 1            | 101            | 1000             |
+  | 2            | 101            | 1000             |
+  | 3            | 101            | 1000             |
+  | 4            | 101            | 1000             |
+  | 5            | 102            | 500              |
+  | 6            | 102            | 500              |
+  | 7            | 102            | 500              |
+  | 8            | 103            | 250              |
+  | 9            | 103            | 250              |
+  | 10           | 103            | 250              |
+  | 11           | 104            | 1200             |
+  | 12           | 104            | 1200             |
+  | 13           | 104            | 1200             |
+  | 14           | 104            | 1200             |
+  | 15           | 104            | 1200             |
+  | 16           | 105            | 600              |
+  | 17           | 105            | 600              |
+  | 18           | 105            | 600             
+
+
+
+
+  
