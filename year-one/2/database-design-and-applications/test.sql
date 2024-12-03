@@ -57,21 +57,48 @@ ALTER TABLE District
 ADD COLUMN Population INT NOT NULL;
 
 ### Question Nine: Insert sample data into the District and Citizen tables. Change the data type of NIN in the Citizen table to BIGINT.
+ALTER TABLE Citizen
+MODIFY NIN BIGINT;
 
-### Question Ten
-Create a view named view1 to count the total number of districts.
+INSERT INTO District( DistrictCode, Name, Region, Population)
+VALUES (
+    '001',
+    'Arua',
+    'Northern-Uganda',
+    '1000000'
+);
 
-### Question Eleven
-Create a view named view2 to concatenate the first name and last name of citizens into a full name.
+INSERT INTO Citizen (NIN, Fname, Lname, Gender, DistrictCode)
+VALUES (
+    '12345678901',
+    'Alexa',
+    'Mulungi',
+    'Female',
+    '001'
+);
 
-### Question Twelve
-Create a view named view3 to select all citizens from districts in the Northern region.
+### Question Ten: Create a view named view1 to count the total number of districts.
+CREATE VIEW view1 AS
+SELECT COUNT(*) AS TotalDistricts FROM District;
 
-### Question Thirteen
-Create a view named view4 to select districts where the name starts with 'A'.
+### Question Eleven: Create a view named view2 to concatenate the first name and last name of citizens into a full name.
+CREATE VIEW view2 AS
+SELECT CONCAT('Fname', ' ', 'Lname') AS FullName FROM Citizen;
 
-### Question Fourteen
-Create a view named view5 to calculate the total population of all districts.
+### Question Twelve: Create a view named view3 to select all citizens from districts in the Northern region.
+CREATE view3 AS
+SELECT 
 
-### Question Fifteen
-Create a view named view6 to select the district with the highest population.
+### Question Thirteen: Create a view named view4 to select districts where the name starts with 'A'.
+CREATE VIEW view4 AS
+SELECT * FROM District
+WHERE Name LIKE 'A%';
+
+### Question Fourteen: Create a view named view5 to calculate the total population of all districts.
+CREATE VIEW view5 AS
+SELECT SUM(Population) AS TotalPopulation FROM District;
+
+### Question Fifteen: Create a view named view6 to select the district with the highest population.
+CREATE VIEW view6 AS 
+SELECT * FROM District
+WHERE Population = (SELECT MAX(Population) FROM District);
