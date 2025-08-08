@@ -1,1 +1,1 @@
-Year Two, Seemster One. 
+Year Two, Semester One. 
